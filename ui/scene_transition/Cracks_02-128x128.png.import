@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byhady7lw5cj6"
-path="res://.godot/imported/player-stand.png-59787123a5fa0e491ca78c81e6bfc7d5.ctex"
+uid="uid://dk6rkfvohkbon"
+path="res://.godot/imported/Cracks_02-128x128.png-502f7ef6bfb58d18547a8b915e474b68.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/player-stand.png"
-dest_files=["res://.godot/imported/player-stand.png-59787123a5fa0e491ca78c81e6bfc7d5.ctex"]
+source_file="res://ui/scene_transition/Cracks_02-128x128.png"
+dest_files=["res://.godot/imported/Cracks_02-128x128.png-502f7ef6bfb58d18547a8b915e474b68.ctex"]
 
 [params]
 

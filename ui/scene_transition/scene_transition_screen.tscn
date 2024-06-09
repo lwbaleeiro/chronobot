@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dflhxinwuodcx"]
+
+[ext_resource type="Shader" path="res://ui/scene_transition/scene_transition_screen.gdshader" id="1_00uws"]
+[ext_resource type="Texture2D" uid="uid://cgkbeu56f6hes" path="res://ui/scene_transition/Craters_04-128x128.png" id="2_h4pmj"]
+[ext_resource type="Texture2D" uid="uid://dk6rkfvohkbon" path="res://ui/scene_transition/Cracks_02-128x128.png" id="3_bdwb5"]
+[ext_resource type="Theme" uid="uid://df8keslie2rq7" path="res://ui/theme/game_theme.tres" id="4_y4cix"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_65o4p"]
+shader = ExtResource("1_00uws")
+shader_parameter/colour_1 = Color(0.834889, 0.170022, 0.626951, 1)
+shader_parameter/colour_2 = Color(0.25959, 0.0714501, 0.246889, 1)
+shader_parameter/tiling_factor = 2.5
+shader_parameter/move_speed = 0.1
+shader_parameter/subtraction_speed = 2.5
+shader_parameter/noise_texture = ExtResource("3_bdwb5")
+shader_parameter/dissolve_noise_texture = ExtResource("2_h4pmj")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wj7qd"]
+
+[node name="SceneTransitionScreen" type="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_65o4p")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_wj7qd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.986716, 0.968045)
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("4_y4cix")
+text = "LOADING
+"
+vertical_alignment = 1
