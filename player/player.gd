@@ -3,6 +3,7 @@ extends CharacterBody2D
 const GRAVITY = 1000
 
 var bullet = preload("res://player/bullet.tscn")
+var player_death_effect = preload("res://player/player_death_effect/player_death_effect.tscn")
 
 @export var speed: int = 1000
 @export var max_horizontal_speed: int = 300
@@ -11,14 +12,17 @@ var bullet = preload("res://player/bullet.tscn")
 @export var jump: int = -300
 @export var jump_horizontal_speed: int = 1000
 @export var max_jump_horizontal_speed: int = 300
+@export var jump_count: int = 1
 
 enum State {Idle, Run, Jump, Shoot}
 
 var current_state: State
 var muzzle_position
+var current_jump_count: int
 
 @onready var animated = $AnimatedSprite2D
 @onready var muzzle: Marker2D = $Muzzle
+@onready var hit_animation_player = $HitAnimationPlayer
 
 func _ready():
 	current_state = State.Idle
@@ -71,8 +75,18 @@ func player_run(delta: float):
 		animated.flip_h = false if direction > 0 else true
 
 func player_jump(delta: float):
-	if Input.is_action_just_pressed("jump"):
+	
+	var jump_input: bool = Input.is_action_just_pressed("jump")
+	
+	if is_on_floor() and jump_input:
+		current_jump_count = 0
 		velocity.y = jump
+		current_jump_count += 1
+		current_state = State.Jump
+		
+	if !is_on_floor() and jump_input and current_jump_count < jump_count:
+		velocity.y = jump
+		current_jump_count += 1
 		current_state = State.Jump
 		
 	if !is_on_floor() and current_state == State.Jump:
@@ -97,12 +111,21 @@ func player_animation():
 		animated.play("jump") 
 	elif current_state == State.Shoot:
 		animated.play("run_shoot")
-		
+
+func player_death():
+	var player_death_effect_instance = player_death_effect.instantiate() as Node2D
+	player_death_effect_instance.global_position = global_position
+	get_parent().add_child(player_death_effect_instance) # importante, adicionar ao parent do player pois quando deletar o player a animação não ser deletada junto
+	queue_free()
+
 func input_movement():
 	var direction: float = Input.get_axis("move_left", "move_right")
 	return direction
 
 func _on_hur_box_body_entered(body: Node2D):
 	if body.is_in_group("Enemy"):
-		print("Enemy entered: ", body.damage_amount)
 		HealthManager.decrease_health(body.damage_amount)
+		hit_animation_player.play("hit")
+	
+	if HealthManager.current_healht == 0:
+		player_death()

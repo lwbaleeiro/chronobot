@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cn3vxxida34ns"]
+[gd_scene load_steps=10 format=3 uid="uid://cn3vxxida34ns"]
 
+[ext_resource type="Script" path="res://player/player_camera.gd" id="1_fd1wg"]
 [ext_resource type="Texture2D" uid="uid://ltvobq1edrrg" path="res://tileset/game_tilesets_1.png" id="1_nspot"]
 [ext_resource type="Texture2D" uid="uid://cqrufe6x4duc0" path="res://tileset/props.png" id="2_0mmdd"]
 [ext_resource type="PackedScene" uid="uid://dtp65dju5whdk" path="res://player/player.tscn" id="2_pwi36"]
@@ -671,6 +672,11 @@ sources/2 = SubResource("TileSetAtlasSource_g2mbx")
 
 [node name="BaseLevel" type="Node2D"]
 
+[node name="PlayerCamera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(49, -134)
+script = ExtResource("1_fd1wg")
+player = NodePath("../Player")
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_t05cr")
 format = 2
@@ -684,5 +690,3 @@ layer_2/tile_data = PackedInt32Array()
 
 [node name="Player" parent="." instance=ExtResource("2_pwi36")]
 position = Vector2(49, -134)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]

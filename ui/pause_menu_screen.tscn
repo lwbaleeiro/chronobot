@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://ommq45cy6flg"]
+
+[ext_resource type="Script" path="res://ui/pause_menu_screen.gd" id="1_05w7n"]
+[ext_resource type="Texture2D" uid="uid://dxidtsgr4mq5q" path="res://ui/theme/environment-preview.png" id="1_fldr6"]
+[ext_resource type="Theme" uid="uid://df8keslie2rq7" path="res://ui/theme/game_theme.tres" id="2_os84r"]
+[ext_resource type="Texture2D" uid="uid://cwe1lm5fdje7l" path="res://ui/theme/player-run-5.png" id="3_awyid"]
+[ext_resource type="Texture2D" uid="uid://dq8t2f2s1v0km" path="res://ui/theme/octopus-4.png" id="4_dyegd"]
+
+[node name="PauseMenuScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_05w7n")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.443137, 0.431373, 0.658824, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -68.0
+offset_right = 288.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fldr6")
+
+[node name="Player-run-5" type="Sprite2D" parent="TextureRect"]
+position = Vector2(515, 297)
+texture = ExtResource("3_awyid")
+
+[node name="Octopus-4" type="Sprite2D" parent="TextureRect"]
+position = Vector2(624, 282)
+texture = ExtResource("4_dyegd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_os84r")
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="VSeparator" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VSeparator"]
+layout_mode = 2
+text = "Continue"
+
+[node name="MainMenuButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VSeparator"]
+layout_mode = 2
+text = "Main menu"
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VSeparator/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VSeparator/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

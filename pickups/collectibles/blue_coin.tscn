@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://danapmb1iksbi"]
+
+[ext_resource type="Texture2D" uid="uid://cqg5axarf7ah6" path="res://pickups/collectibles/tilemap.png" id="1_b4wtf"]
+[ext_resource type="Script" path="res://pickups/collectibles/blue_coin.gd" id="1_snn6k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fry6n"]
+atlas = ExtResource("1_b4wtf")
+region = Rect2(209, 135, 19, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q60cm"]
+atlas = ExtResource("1_b4wtf")
+region = Rect2(228, 135, 19, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y1gb7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fry6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q60cm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ysr31"]
+radius = 8.0
+
+[node name="BlueCoin" type="Node2D"]
+script = ExtResource("1_snn6k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y1gb7")
+autoplay = "default"
+frame_progress = 0.809414
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ysr31")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.5
+offset_top = -11.5
+offset_right = 14.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1
+"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
